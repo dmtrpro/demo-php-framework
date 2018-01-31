@@ -8,6 +8,8 @@
 
 namespace App\Presentation\Controller;
 
+use App\Framework\DB\SQLiteDataBase;
+
 class GalleryController extends Controller
 {
     /* @var string */
@@ -15,13 +17,19 @@ class GalleryController extends Controller
 
     protected $images;
 
+    protected $db;
+
     public function __construct()
     {
         //parent::__construct();
 
         $this->addToLayoutData('headerText', $this->render('gallery/_form'));
 
-        $this->images = json_decode(file_get_contents(DATA_DIR . 'gallery.json'), true);
+        //$this->images = json_decode(file_get_contents(DATA_DIR . 'gallery.json'), true);
+
+        $this->db = new SQLiteDataBase();
+
+        $this->images = $this->db->selectAll();
     }
 
     public function indexAction()
@@ -58,17 +66,21 @@ class GalleryController extends Controller
 
     public function generateAction($image = null)
     {
-        $images = [
-            'river' => ['image' => 'forest-river.jpg', 'excerpt' => 'Лес'],
-            'lake' => ['image' => 'lake.jpg', 'excerpt' => 'Озеро'],
-            'mountain' => ['image' => 'mountain.jpg', 'excerpt' => 'Горы'],
-            'paradise' => ['image' => 'paradise.jpg', 'excerpt' => 'Водопады'],
-            'deer' => ['image' => 'deer.jpg', 'excerpt' => 'Олени'],
-            'waterfall' => ['image' => 'waterfall.jpg', 'excerpt' => 'Ручьи'],
-        ];
-        file_put_contents(DATA_DIR . 'gallery.json', json_encode($images));
+        if (empty($this->images)){
+            $images = [
+                'river' => ['slug' => 'forest-river', 'image' => 'forest-river.jpg', 'excerpt' => 'Лес', 'filesize' => 0],
+                'lake' => ['slug' => 'lake', 'image' => 'lake.jpg', 'excerpt' => 'Озеро', 'filesize' => 0],
+                'mountain' => ['slug' => 'mountain', 'image' => 'mountain.jpg', 'excerpt' => 'Горы', 'filesize' => 0],
+                'paradise' => ['slug' => 'paradise', 'image' => 'paradise.jpg', 'excerpt' => 'Водопады', 'filesize' => 0],
+                'deer' => ['slug' => 'deer', 'image' => 'deer.jpg', 'excerpt' => 'Олени', 'filesize' => 0],
+                'waterfall' => ['slug' => 'waterfall', 'image' => 'waterfall.jpg', 'excerpt' => 'Ручьи', 'filesize' => 0],
+            ];
+            //file_put_contents(DATA_DIR . 'gallery.json', json_encode($images));
 
-        $this->addToLayoutData('modalText', 'Галерея сгенерирована!');
+            $this->db->insertImages($images);
+
+            $this->addToLayoutData('modalText', 'Галерея создана!');
+        }
 
         $page['title'] = 'Галерея';
 
@@ -86,12 +98,18 @@ class GalleryController extends Controller
             if (move_uploaded_file($_FILES['image']['tmp_name'], UPLOADS_DIR . $fileName)) {
                 $this->addToLayoutData('modalText', 'Файл загружен успешно');
 
-                $this->images[$slug] = [
+                $image = [
+                    'slug' => $slug,
                     'image' => strip_tags($fileName),
-                    'excerpt' => htmlspecialchars($_POST['excerpt'])
+                    'excerpt' => htmlspecialchars($_POST['excerpt']),
+                    'filesize' => $_FILES['image']['size']
                 ];
 
-                file_put_contents(DATA_DIR . 'gallery.json', json_encode($this->images));
+                $this->db->insert($image);
+
+                //file_put_contents(DATA_DIR . 'gallery.json', json_encode($image));
+
+                $this->images[$slug] = $image;
 
             } else {
                 $this->addToLayoutData('modalText', 'Файл не загружен');
