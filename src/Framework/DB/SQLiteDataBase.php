@@ -16,7 +16,7 @@ class SQLiteDataBase
 
     public function __construct()
     {
-        $this->db = new PDO('sqlite:'.DATA_DIR.'/images.sqlite3');
+        $this->db = new PDO('sqlite:' . DATA_DIR . '/images.sqlite3');
         //$this->db = new PDO('sqlite:images.sqlite3');
 
         $this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -52,30 +52,20 @@ class SQLiteDataBase
 
         $stmt = $this->db->prepare($insert);
 
-        // Bind parameters to statement variables
-        $stmt->bindParam(':slug', $slug);
-        $stmt->bindParam(':image', $image);
-        $stmt->bindParam(':excerpt', $excerpt);
-        $stmt->bindParam(':filesize', $filesize);
-
-        $slug = $img['slug'];
-        $image = $img['image'];
-        $filesize = $img['filesize'];
-        $excerpt = $img['excerpt'];
-
         // Execute statement
-        return $stmt->execute();
+        return $stmt->execute([
+            'slug' => $img['slug'],
+            'image' => $img['image'],
+            'excerpt' => $img['excerpt'],
+            'filesize' => $img['filesize'],
+        ]);
     }
 
     public function selectAll()
     {
-        $result = $this->db->query('SELECT * FROM images', PDO::FETCH_ASSOC);
+        $stmt = $this->db->query('SELECT * FROM images', PDO::FETCH_ASSOC);
 
-        foreach($result as $row) {
-            $res[$row['slug']] = $row;
-        }
-
-        return $res;
+        return $stmt->fetchAll();
     }
 
     public function selectByID($id)
@@ -84,19 +74,19 @@ class SQLiteDataBase
 
         $stmt = $this->db->prepare($select);
 
-        $stmt->bindParam(':id', $id);
+        $stmt->execute(['id' => $id]);
 
-        return $stmt->execute();
+        return $stmt->fetch();
     }
 
     public function selectBySlug($slug)
     {
-        $select = 'SELECT * FROM images WHERE $slug=:$slug';
+        $select = 'SELECT * FROM images WHERE slug=:slug';
 
         $stmt = $this->db->prepare($select);
 
-        $stmt->bindParam(':id', $slug);
+        $stmt->execute(['slug' => $slug]);
 
-        return $stmt->execute();
+        return $stmt->fetch();
     }
 }

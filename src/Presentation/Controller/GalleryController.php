@@ -15,7 +15,7 @@ class GalleryController extends Controller
     /* @var string */
     const LAYOUT = 'gallery';
 
-    protected $images;
+    //protected $images;
 
     protected $db;
 
@@ -28,52 +28,56 @@ class GalleryController extends Controller
         //$this->images = json_decode(file_get_contents(DATA_DIR . 'gallery.json'), true);
 
         $this->db = new SQLiteDataBase();
-
-        $this->images = $this->db->selectAll();
     }
 
     public function indexAction()
     {
-        $this->formHandle();
-
         $page['title'] = 'Галерея';
 
-        $page['imageCards'] = $this->images;
+        $page['imageCards'] = $this->db->selectAll();
+
+        $newImage = $this->formHandle();
+        if($newImage) {
+            $page['imageCards'][] = $newImage;
+        }
 
         return $this->renderPage('gallery/index', $page);
-
     }
 
     public function singleAction($image = null)
     {
-        $this->formHandle();
-
         $page['title'] = 'Галерея';
+
+        $this->formHandle();
 
         if (!$image) {
             $image = $_GET['image'];
         }
 
-        if (!$this->images[$image]) {
+        try {
+            $img = $this->db->selectBySlug($image);
+        } catch (\Exception $e) {
             throw new \InvalidArgumentException("Page not found!", 404);
         }
 
-        $page['image'] = $this->images[$image]['image'];
-        $page['excerpt'] = $this->images[$image]['excerpt'];
+        $page['image'] = $img['image'];
+        $page['excerpt'] = $img['excerpt'];
 
         return $this->renderPage('gallery/single', $page);
     }
 
     public function generateAction($image = null)
     {
-        if (empty($this->images)){
+        $images = $this->db->selectAll();
+
+        if (empty($images)) {
             $images = [
-                'river' => ['slug' => 'forest-river', 'image' => 'forest-river.jpg', 'excerpt' => 'Лес', 'filesize' => 0],
-                'lake' => ['slug' => 'lake', 'image' => 'lake.jpg', 'excerpt' => 'Озеро', 'filesize' => 0],
-                'mountain' => ['slug' => 'mountain', 'image' => 'mountain.jpg', 'excerpt' => 'Горы', 'filesize' => 0],
-                'paradise' => ['slug' => 'paradise', 'image' => 'paradise.jpg', 'excerpt' => 'Водопады', 'filesize' => 0],
-                'deer' => ['slug' => 'deer', 'image' => 'deer.jpg', 'excerpt' => 'Олени', 'filesize' => 0],
-                'waterfall' => ['slug' => 'waterfall', 'image' => 'waterfall.jpg', 'excerpt' => 'Ручьи', 'filesize' => 0],
+                ['slug' => 'forest-river', 'image' => 'forest-river.jpg', 'excerpt' => 'Лес', 'filesize' => 0],
+                ['slug' => 'lake', 'image' => 'lake.jpg', 'excerpt' => 'Озеро', 'filesize' => 0],
+                ['slug' => 'mountain', 'image' => 'mountain.jpg', 'excerpt' => 'Горы', 'filesize' => 0],
+                ['slug' => 'paradise', 'image' => 'paradise.jpg', 'excerpt' => 'Водопады', 'filesize' => 0],
+                ['slug' => 'deer', 'image' => 'deer.jpg', 'excerpt' => 'Олени', 'filesize' => 0],
+                ['slug' => 'waterfall', 'image' => 'waterfall.jpg', 'excerpt' => 'Ручьи', 'filesize' => 0],
             ];
             //file_put_contents(DATA_DIR . 'gallery.json', json_encode($images));
 
@@ -84,7 +88,7 @@ class GalleryController extends Controller
 
         $page['title'] = 'Галерея';
 
-        $page['imageCards'] = $this->images;
+        $page['imageCards'] = $images;
 
         return $this->renderPage('gallery/index', $page);
     }
@@ -109,12 +113,12 @@ class GalleryController extends Controller
 
                 //file_put_contents(DATA_DIR . 'gallery.json', json_encode($image));
 
-                $this->images[$slug] = $image;
-
+                return $image;
             } else {
                 $this->addToLayoutData('modalText', 'Файл не загружен');
             }
-        }
 
+            return null;
+        }
     }
 }

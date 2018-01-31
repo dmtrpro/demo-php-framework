@@ -13,7 +13,7 @@
 <div class="album py-5 bg-light">
     <div class="container">
         <div class="row">
-            <?php foreach ($page['imageCards'] as $slug => $card) {
+            <?php foreach ($page['imageCards'] as $card) {
                 include TEMPLATE_DIR.'gallery/_card.php';
             } ?>
         </div>
