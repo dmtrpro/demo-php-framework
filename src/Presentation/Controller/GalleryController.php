@@ -66,7 +66,7 @@ class GalleryController extends Controller
         return $this->renderPage('gallery/single', $page);
     }
 
-    public function generateAction($image = null)
+    public function generateAction()
     {
         $images = $this->db->selectAll();
 
@@ -117,8 +117,7 @@ class GalleryController extends Controller
             } else {
                 $this->addToLayoutData('modalText', 'Файл не загружен');
             }
-
-            return null;
         }
+        return null;
     }
 }
