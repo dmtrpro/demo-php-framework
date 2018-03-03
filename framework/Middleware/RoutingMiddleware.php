@@ -38,13 +38,13 @@ class RoutingMiddleware implements MiddlewareInterface
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
         try {
-            $route = $this->router->match($request);
+            $result = $this->router->match($request);
 
-            $callable = $this->checkCallable($route->getCallable());
+            $handler = $this->prepareHandler($result->getHandler());
 
-            $args = $route->getArguments();
+            $args = $result->getAttributes();
 
-            $response = call_user_func_array($callable, [$request->withAttribute('args', $args)]);
+            $response = $handler($request->withAttribute('args', $args));
 
             if (!$response instanceof ResponseInterface) {
                 throw new \RuntimeException(
@@ -64,7 +64,7 @@ class RoutingMiddleware implements MiddlewareInterface
      * @throws \Psr\Container\ContainerExceptionInterface
      * @throws \Psr\Container\NotFoundExceptionInterface
      */
-    protected function checkCallable($callable)
+    protected function prepareHandler($callable)
     {
         if (is_string($callable) && strpos($callable, '::') !== false) {
             $callable = explode('::', $callable);

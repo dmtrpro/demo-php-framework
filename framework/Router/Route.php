@@ -48,11 +48,6 @@ class Route
      */
     protected $tokens = [];
 
-    /**
-     * @var string[]
-     */
-    protected $arguments = [];
-
     public function __construct($name, $path, $callable)
     {
         $this->name = $name;
@@ -60,7 +55,7 @@ class Route
         $this->callable = $callable;
     }
 
-    public function match(ServerRequestInterface $request): ?Route
+    public function match(ServerRequestInterface $request): ?Result
     {
         if ($this->methods && !\in_array($request->getMethod(), $this->methods, true)) {
             return null;
@@ -78,12 +73,12 @@ class Route
             return null;
         }
 
-        $this->arguments = array_filter($matches, '\is_string', ARRAY_FILTER_USE_KEY);
+        $arguments = array_filter($matches, '\is_string', ARRAY_FILTER_USE_KEY);
 
-        return $this;
+        return new Result($this->name, $this->callable, $arguments);
     }
 
-    public function generate($name, array $params = []): ?string
+    public function generate(string $name, array $params = []): ?string
     {
         $arguments = array_filter($params);
 
@@ -225,24 +220,6 @@ class Route
     public function setTokens(array $tokens): Route
     {
         $this->tokens = $tokens;
-        return $this;
-    }
-
-    /**
-     * @return string[]
-     */
-    public function getArguments(): array
-    {
-        return $this->arguments;
-    }
-
-    /**
-     * @param string[] $arguments
-     * @return Route
-     */
-    public function setArguments(array $arguments): Route
-    {
-        $this->arguments = $arguments;
         return $this;
     }
 }

@@ -9,7 +9,6 @@
 namespace Framework;
 
 
-use Framework\Middleware\NotFoundHandler;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -40,7 +39,6 @@ class Kernel implements RequestHandlerInterface
      */
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
-        // Last middleware in the queue has called on the request handler.
         if (0 === count($this->middleware)) {
             return $this->container->get('DefaultHandler')->handle($request);
         }
@@ -73,10 +71,14 @@ class Kernel implements RequestHandlerInterface
      */
     public function add($middleware)
     {
+        if (is_string($middleware)) {
+            $middleware = $this->container->get($middleware);
+        }
+
         if ($middleware instanceof MiddlewareInterface) {
             $this->middleware[] = $middleware;
         } else {
-            $this->middleware[] = $this->container->get($middleware);
+            throw new \InvalidArgumentException('Argument must be instance of MiddlewareInterface');
         }
     }
 }

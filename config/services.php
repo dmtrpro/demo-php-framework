@@ -1,9 +1,7 @@
 <?php
 
-use Framework\Middleware\ErrorHandler;
 use Framework\Middleware\ErrorHandlerMiddleware;
 use Framework\Middleware\NotFoundHandler;
-use Framework\Middleware\RoutingMiddleware;
 use Framework\Renderer\PhpRenderer;
 use Framework\Renderer\RendererInterface;
 use League\Container\Container;
