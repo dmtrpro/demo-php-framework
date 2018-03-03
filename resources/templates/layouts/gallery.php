@@ -1,4 +1,4 @@
-<?php require_once TEMPLATE_DIR . 'parts/_head.php' ?>
+<?php require_once TEMPLATE_DIR . '/parts/_head.php' ?>
 
 <header>
     <div class="collapse bg-dark" id="navbarHeader">
@@ -41,4 +41,4 @@
     <?= $content; ?>
 </main>
 
-<?php require_once TEMPLATE_DIR.'parts/_footer.php' ?>
+<?php require_once TEMPLATE_DIR . '/parts/_footer.php' ?>

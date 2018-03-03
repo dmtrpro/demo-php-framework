@@ -63,7 +63,7 @@ abstract class Controller
     {
         extract($params);
 
-        $filePath = TEMPLATE_DIR . $template . '.php';
+        $filePath = TEMPLATE_DIR . '/' . $template . '.php';
 
         if (!file_exists($filePath)) {
             throw new \InvalidArgumentException("Template '$template' not found!", 501);
@@ -71,10 +71,9 @@ abstract class Controller
 
         ob_start();
 
-        include($filePath);
+        require($filePath);
 
-        $result = ob_get_contents();
-        ob_end_clean();
+        $result = ob_get_clean();
 
         return $result;
     }

@@ -14,7 +14,7 @@
     <div class="container">
         <div class="row">
             <?php foreach ($page['imageCards'] as $card) {
-                include TEMPLATE_DIR.'gallery/_card.php';
+                include TEMPLATE_DIR . '/gallery/_card.php';
             } ?>
         </div>
     </div>

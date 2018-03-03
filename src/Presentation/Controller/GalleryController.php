@@ -9,6 +9,9 @@
 namespace App\Presentation\Controller;
 
 use App\Framework\DB\SQLiteDataBase;
+use Framework\Router\Exception\InvalidRequestException;
+use Psr\Http\Message\ServerRequestInterface;
+use Zend\Diactoros\Response\HtmlResponse;
 
 class GalleryController extends Controller
 {
@@ -30,40 +33,40 @@ class GalleryController extends Controller
         $this->db = new SQLiteDataBase();
     }
 
-    public function indexAction()
+    public function indexAction(ServerRequestInterface $request)
     {
         $page['title'] = 'Галерея';
 
         $page['imageCards'] = $this->db->selectAll();
 
         $newImage = $this->formHandle();
+
         if($newImage) {
             $page['imageCards'][] = $newImage;
         }
 
-        return $this->renderPage('gallery/index', $page);
+        return new HtmlResponse($this->renderPage('gallery/index', $page));
     }
 
-    public function singleAction($image = null)
+    public function singleAction(ServerRequestInterface $request)
     {
+        $args = $request->getAttribute('args');
+        $image = $args['image'];
+
         $page['title'] = 'Галерея';
 
         $this->formHandle();
 
-        if (!$image) {
-            $image = $_GET['image'];
-        }
+        $img = $this->db->selectBySlug($image);
 
-        try {
-            $img = $this->db->selectBySlug($image);
-        } catch (\Exception $e) {
-            throw new \InvalidArgumentException("Page not found!", 404);
+        if (!$img) {
+            throw new InvalidRequestException($request, "Image with this id not found!");
         }
 
         $page['image'] = $img['image'];
         $page['excerpt'] = $img['excerpt'];
 
-        return $this->renderPage('gallery/single', $page);
+        return new HtmlResponse($this->renderPage('gallery/single', $page));
     }
 
     public function generateAction()

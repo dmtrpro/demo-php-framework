@@ -1,20 +1,21 @@
 <?php
 
-use App\Presentation\Controller\GalleryController;
+use Framework\Kernel;
+use Framework\Middleware\ErrorHandlerMiddleware;
+use Framework\Middleware\RoutingMiddleware;
+use Zend\Diactoros\ServerRequestFactory;
 
-try {
-    include_once '../autoload.php';
+include_once __DIR__.'/../autoload.php';
 
-    $controller = new GalleryController();
+$container = require CONFIG_DIR . '/services.php';
+$router = require CONFIG_DIR . '/router.php';
 
-    if ($_GET['image']) {
-        echo $controller->singleAction();
-    } elseif (isset($_GET['generate'])) {
-        echo $controller->generateAction();
-    } else {
-        echo $controller->indexAction();
-    }
+$kernel = new Kernel($container);
 
-} catch (\Exception $e) {
-    echo 'Oups! Error #' . $e->getCode() . ': ' . $e->getMessage();
-}
+$kernel->add(ErrorHandlerMiddleware::class);
+$kernel->add(new RoutingMiddleware($container, $router));
+
+$request = ServerRequestFactory::fromGlobals();
+$response = $kernel->handle($request);
+
+$kernel->emit($response);
