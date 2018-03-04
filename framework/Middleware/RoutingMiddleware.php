@@ -40,11 +40,11 @@ class RoutingMiddleware implements MiddlewareInterface
         try {
             $result = $this->router->match($request);
 
-            $handler = $this->prepareHandler($result->getHandler());
+            $responseHandler = $this->prepareHandler($result->getHandler());
 
             $args = $result->getAttributes();
 
-            $response = $handler($request->withAttribute('args', $args));
+            $response = $responseHandler($request->withAttribute('args', $args));
 
             if (!$response instanceof ResponseInterface) {
                 throw new \RuntimeException(
@@ -54,6 +54,7 @@ class RoutingMiddleware implements MiddlewareInterface
 
             return $response;
         } catch (InvalidRequestException $e) {
+            $request = $e->getRequest();
             return $handler->handle($request);
         }
     }

@@ -6,11 +6,13 @@ define('TEMPLATE_DIR', RESOURCES_DIR . '/templates');
 define('APP_DIR', ROOT_DIR . '/src');
 define('CONFIG_DIR', ROOT_DIR . '/config');
 define('DATA_DIR', ROOT_DIR . '/data');
+define('VAR_DIR', ROOT_DIR . '/var');
 define('PUBLIC_DIR', ROOT_DIR . '/public');
 define('UPLOADS_DIR', PUBLIC_DIR . '/uploads');
 
 define('CONFIG', [
     'site' => include CONFIG_DIR . 'site.config.php',
+    'global' => include CONFIG_DIR . 'global.config.php',
 ]);
 
 /**

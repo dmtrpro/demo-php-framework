@@ -1,21 +1,21 @@
 <?php
 
-use Framework\Kernel;
+use App\App;
 use Framework\Middleware\ErrorHandlerMiddleware;
 use Framework\Middleware\RoutingMiddleware;
 use Zend\Diactoros\ServerRequestFactory;
 
-include_once __DIR__.'/../autoload.php';
+include_once dirname(__DIR__).'/autoload.php';
 
 $container = require CONFIG_DIR . '/services.php';
 $router = require CONFIG_DIR . '/router.php';
 
-$kernel = new Kernel($container);
+$app = new App($container);
 
-$kernel->add(ErrorHandlerMiddleware::class);
-$kernel->add(new RoutingMiddleware($container, $router));
+$app->add(ErrorHandlerMiddleware::class);
+$app->add(new RoutingMiddleware($container, $router));
 
 $request = ServerRequestFactory::fromGlobals();
-$response = $kernel->handle($request);
+$response = $app->handle($request);
 
-$kernel->emit($response);
+$app->emit($response);

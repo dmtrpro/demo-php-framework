@@ -1,15 +1,17 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: dmtr
+ * Date: 04.03.18
+ * Time: 11:15
+ */
 
 namespace App;
 
-class App
-{
-    public static $CONFIG = [];
 
-    public function __construct()
-    {
-        self::$CONFIG = [
-            'site' => include CONFIG_DIR . 'site.config.php',
-        ];
-    }
+use Framework\Kernel;
+
+class App extends Kernel
+{
+
 }

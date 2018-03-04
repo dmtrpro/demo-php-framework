@@ -43,7 +43,12 @@ class ErrorHandlerMiddleware implements MiddlewareInterface
         try {
             return $handler->handle($request);
         } catch (\Throwable $e) {
-            return new HtmlResponse($this->renderer->render('error/error', [
+            $debug = CONFIG['global']['debug'];
+
+            $template = ($debug) ? 'error/debug' : 'error/error';
+
+            return new HtmlResponse($this->renderer->render($template, [
+                'exception' => $e,
                 'code' => 500,
                 'message' => 'Internal Server Error',
                 'description' => 'Error #' . $e->getCode() . ': ' . $e->getMessage()

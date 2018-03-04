@@ -4,6 +4,7 @@ use Framework\Middleware\ErrorHandlerMiddleware;
 use Framework\Middleware\NotFoundHandler;
 use Framework\Renderer\PhpRenderer;
 use Framework\Renderer\RendererInterface;
+use Framework\Renderer\TwigRenderer;
 use League\Container\Container;
 
 $container = new Container();
@@ -13,11 +14,12 @@ $container->delegate(
 );
 
 $container->add(RendererInterface::class, PhpRenderer::class);
+$container->add('twig', TwigRenderer::class);
 
-$container->add('DefaultHandler', NotFoundHandler::class)->withArgument(RendererInterface::class);
+$container->add('DefaultHandler', NotFoundHandler::class)->withArgument('twig');
 
 /** Middlewares **/
 
-$container->add(ErrorHandlerMiddleware::class)->withArgument(RendererInterface::class);
+$container->add(ErrorHandlerMiddleware::class)->withArgument('twig');
 
 return $container;

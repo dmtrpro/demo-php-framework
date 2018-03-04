@@ -1,0 +1,15 @@
+{% include 'parts/_head.html.twig' %}
+
+    <main class="container">
+
+        <h1>Exception: {{ exception.getMessage() }}</h1>
+
+        <p>Code: {{ exception.getCode() }}</p>
+        <p>{{ exception.getFile() }} on line {{ exception.getLine() }}</p>
+        {% for trace in exception.getTrace() %}
+            <p>{{ trace['file'] }} on line {{ trace['line'] }}</p>
+        {% endfor %}
+
+    </main>
+
+{% include 'parts/_footer.html.twig' %}
