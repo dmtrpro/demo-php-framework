@@ -13,15 +13,17 @@ class PhpRenderer implements RendererInterface
 {
     public function render(string $template, array $params = []): string
     {
-        extract($params);
+        $template = str_replace(':', DIRECTORY_SEPARATOR, $template);
 
-        $filePath = TEMPLATE_DIR . '/' . $template . '.php';
+        $filePath = TEMPLATE_DIR . DIRECTORY_SEPARATOR . $template . '.php';
 
         if (!file_exists($filePath)) {
             throw new \InvalidArgumentException("Template '$template' not found!", 501);
         }
 
         ob_start();
+
+        extract($params);
 
         require($filePath);
 

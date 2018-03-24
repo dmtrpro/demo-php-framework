@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "sourceMap": true,
+    "noImplicitAny": true,
+    "outDir": "./public/assets/js"
+  },
+  "exclude": [
+    "node_modules"
+  ],
+  "include": [
+    "./resources/assets/js/**/*"
+  ],
+  "compileOnSave": false
+}

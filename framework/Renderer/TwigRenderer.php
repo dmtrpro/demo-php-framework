@@ -14,29 +14,36 @@ use Twig\Loader\FilesystemLoader;
 
 class TwigRenderer implements RendererInterface
 {
-    private $twig;
+    /**
+     * @var Environment
+     */
+    private $renderer;
 
     /**
      * TwigRenderer constructor.
+     * @param array $options
      * @throws \Twig_Error_Loader
      */
-    public function __construct()
+    public function __construct(array $options = [])
     {
         $debug = CONFIG['global']['debug'];
 
         $loader = new FilesystemLoader();
         $loader->addPath(TEMPLATE_DIR);
 
-        $this->twig = new Environment($loader, array(
-            'debug' => $debug,
-            'auto_reload' => $debug,
-            'cache' => ($debug) ? false : VAR_DIR.'/cache/twig',
-        ));
+        $options['debug'] = $options['debug'] ?? $debug;
+        $options['auto_reload'] = $options['auto_reload'] ?? $debug;
+        $options['cache'] = $options['cache'] ?? VAR_DIR . '/cache/twig';
+
+        $this->renderer = new Environment($loader, $options);
     }
 
+    /**
+     * @param \Twig_ExtensionInterface $extension
+     */
     public function addExtension(\Twig_ExtensionInterface $extension)
     {
-        $this->twig->addExtension($extension);
+        $this->renderer->addExtension($extension);
     }
 
     /**
@@ -49,6 +56,8 @@ class TwigRenderer implements RendererInterface
      */
     public function render(string $template, array $params = []): string
     {
-        return $this->twig->render( $template.'.html.twig', $params);
+        $template = str_replace(':', DIRECTORY_SEPARATOR, $template);
+
+        return $this->renderer->render($template . '.html.twig', $params);
     }
 }
