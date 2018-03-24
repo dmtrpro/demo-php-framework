@@ -1,9 +1,30 @@
-@import url('https://fonts.googleapis.com/css?family=Roboto');
+$font-lato: Lato, sans-serif;
+$color-pink: #f16d7f;
+$color-gold: #e4af48;
+$color-red: #ff0d0d;
+$color-white: #fff;
+$color-dark: #222;
+$color-subtitle: #9f9f9f;
+$color-about: #898989;
 
-$base-font: 'Roboto';
-$title-padding: 3em;
+$width-wrapper: 1600px;
+$width-container: 1200px;
 
-h1 {
-  font-family: $base-font;
-  padding: $title-padding;
+$imgUrl: '../../img/';
+
+.currency:before{
+  content: '₽ ';
 }
+
+input, button, textarea, select {
+  outline: none;
+}
+
+@import "_mixins.scss";
+@import "_main.scss";
+@import "_header.scss";
+@import "_footer.scss";
+@import "_index.scss";
+@import "_catalog";
+@import "_single.scss";
+@import "_support-pages.scss";

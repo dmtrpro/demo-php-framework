@@ -1,0 +1,309 @@
+/* Footer */
+.footer {
+  background-color: #e6e6e6;
+  margin-top: 90px;
+  padding: 24px;
+  .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 80px;
+  }
+}
+
+.footer__copy {
+  color: #7a7a7a;
+  font-size: 1em;
+  font-weight: 400;
+  max-width: 350px;
+}
+
+/* Footer Socials */
+
+.footer__socials {
+  @extend %list;
+  @include flex(space-between);
+  max-width: 191px;
+
+  a {
+    background-color: #ffffff;
+    width: 32px;
+    height: 32px;
+    color: #b2b2b2;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 32px;
+    text-align: center;
+    display: block;
+    margin-right: 5px;
+    @include transition(.5s, background-color);
+  }
+  a:hover {
+    color: $color-white;
+    background-color: $color-pink;
+  }
+  a:active {
+    color: #d6d6d6;
+    background-color: #eeeeee;
+  }
+}
+
+/* Subscribe & revievs */
+
+.subrevs {
+  margin-top: 100px;
+  position: relative;
+  background: {
+    image: url($imgUrl + "subscr-bg-grey.jpg");
+    size: cover;
+    position: bottom;
+    color: rgba(242, 242, 242, 0.5);
+  }
+  .container {
+    min-height: 428px;
+    @include flex(space-between, false);
+    align-items: center;
+  }
+}
+
+.subrevs__block {
+  min-height: 428px;
+  width: 50%;
+  @include flex(center);
+  align-items: center;
+}
+
+.subrevs__block:first-child {
+  border-right: 1px solid #d9d9d9;
+}
+
+.reviews {
+  width: 100%;
+}
+
+.reviews__text {
+  color: rgba(34, 34, 36, 0.67);
+  font-size: 16px;
+  font-style: italic;
+  line-height: 26px;
+  max-width: 386px;
+  float: right;
+  @extend %clearfix;
+  margin-right: 72px;
+}
+
+.reviev-author {
+  margin: 12px 2px;
+}
+
+.reviev-author__name {
+  color: $color-pink;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 26px;
+  font-style: normal;
+}
+
+.reviev-author__desc {
+  color: #222224;
+  font-size: 12px;
+  font-weight: 300;
+  line-height: 14px;
+  font-style: normal;
+}
+
+.reviews__paginator {
+  margin-top: 21px;
+  @extend %list;
+  @include flex(flex-start);
+  li {
+    margin-right: 13px;
+  }
+}
+
+.reviews__paginator a {
+  border-bottom: #d6d6d6 solid 4px;
+  width: 38px;
+  display: inline-block;
+}
+
+.reviews__paginator li.active a {
+  border-bottom: $color-pink solid 4px;
+}
+
+.reviews__paginator li.active a:hover,
+.reviews__paginator a:hover {
+  border-bottom: {
+    color: $color-pink - #222;
+    style: solid;
+    width: 4px;
+  }
+}
+
+.subscribe {
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.subscribe__h1 {
+  color: rgba(34, 34, 36, 1);
+  font-size: 24px;
+  font-weight: 400;
+  text-transform: uppercase;
+}
+
+.subscribe__h2 {
+  display: block;
+  color: rgba(34, 34, 36, 1);
+  font-size: 14px;
+  line-height: 30px;
+  font-weight: 400;
+  text-transform: uppercase;
+}
+
+.subscribe__input {
+  display: flex;
+  justify-content: center;
+  margin-top: 24px;
+}
+
+.subscribe__input .text {
+  padding: 12px 28px;
+  border: none;
+  border-radius: 50px 0 0 50px;
+  box-sizing: border-box;
+  width: 282px;
+  height: 46px;
+  background-color: #e1e1e1;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.subscribe__input .button {
+  border: none;
+  border-radius: 0 50px 50px 0;
+  box-sizing: border-box;
+  width: 104px;
+  height: 46px;
+  background-color: $color-pink;
+  color: $color-white;
+  font-size: 14px;
+  font-weight: 400;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  &:hover {
+    background-color: $color-pink - #222;
+  }
+  &:active {
+    background-color: #e1e1e1;
+    border: 1px $color-pink solid;
+    color: $color-pink;
+  }
+}
+
+/* About block */
+.about {
+  margin-top: 100px;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.about__logo {
+  margin-bottom: 30px;
+}
+
+.about__text {
+  flex-grow: 2;
+  color: $color-about;
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 24px;
+  max-width: 430px;
+  margin-right: 64px;
+}
+
+.about__menu {
+  flex-grow: 1;
+  ul {
+    padding: 0;
+    list-style: none;
+    color: $color-about;
+  }
+  h2 {
+    @extend %font;
+    color: $color-pink;
+    margin: 12px 0 30px;
+  }
+  a {
+    text-decoration: none;
+    color: $color-about;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 42px;
+    &:hover {
+      color: $color-dark;
+    }
+  }
+}
+
+@media screen and (max-width: 1140px) {
+  .reviews {
+    text-align: center;
+    margin-right: 30px;
+
+    .reviews__text {
+      float: none;
+      margin: 0 auto;
+    }
+    .reviews__paginator {
+      justify-content: center;
+    }
+    .reviews__image{
+      display: block;
+      margin: 0 auto;
+    }
+  }
+
+  .about__text {
+    min-width: 100%;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .subrevs {
+    margin-top: 0;
+    padding: 50px 10px;
+  }
+  .subrevs .container {
+    flex-direction: column;
+  }
+  .subrevs__block {
+    min-height: 240px;
+    width: 100%;
+    min-width: 100%;
+  }
+  .subscribe{
+    width: 100%;
+    min-width: 100%;
+  }
+  .subrevs__block:first-child {
+    border-right: none;
+    border-bottom: 1px solid #d9d9d9;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .about__menu{
+    min-width: 100%;
+    text-align: center;
+  }
+  .footer .container {
+    display: flex;
+    flex-direction: column;
+  }
+  .footer__copy{
+    text-align: center;
+  }
+}
+
