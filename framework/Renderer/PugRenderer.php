@@ -62,6 +62,6 @@ class PugRenderer implements RendererInterface
     {
         $template = str_replace(':', DIRECTORY_SEPARATOR, $template);
 
-        return $this->renderer->renderFile(DIRECTORY_SEPARATOR . $template . '.pug', $params);
+        return $this->renderer->renderFile(DIRECTORY_SEPARATOR . $template, $params);
     }
 }

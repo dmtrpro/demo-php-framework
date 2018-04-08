@@ -17,7 +17,7 @@ abstract class HtmlController
     /**
      * @var RendererInterface
      */
-    private $renderer;
+    protected $renderer;
 
     public function __construct(RendererInterface $renderer)
     {
