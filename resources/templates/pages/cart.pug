@@ -1,0 +1,88 @@
+extends /layouts/main.pug
+
+block variables
+    - pagename = 'Cart';
+
+block content
+    section.content.single-product
+        header.breadcrumbs
+            .container
+                h1.h1.breadcrumbs__title Cart
+                ul.breadcrumbs_breadcrumb
+                    li
+                        a(href='index.html') Home
+                    li
+                        | Cart
+
+        .page-cart.container
+
+            -
+                var products = [
+                    {name: 'Mango people t-shirt', price: 150, img:'img/featured-item1.jpg', color:'Red', size:'XXL', q:2, shipping:'Free'},
+                    {name: 'Mango people t-shirt', price: 150, img:'img/featured-item2.jpg', color:'Red', size:'XXL', q:2, shipping:'Free'},
+                    {name: 'Mango people t-shirt', price: 150, img:'img/featured-item3.jpg', color:'Red', size:'XXL', q:2, shipping:'Free'}
+                ]
+
+            header.cart-header
+                .cart-column.cart-header__main Product details
+                .cart-column.cart-header__price Unite Price
+                .cart-column.cart-header__quantity Quantity
+                .cart-column.cart-header__shipping Shipping
+                .cart-column.cart-header__subtotal Subtotal
+                .cart-column.cart-header__action Action
+
+            each val in products
+                article.cart-product
+                    .cart-column.cart-product__main
+                        a(href='single.html').cart-image
+                            img(src=val.img title=val.name alt=val.name)
+                        .cart-product__details
+                            a(href='single.html').cart-product__title
+                                h2=val.name
+                            .cart-product__attr='Color: '
+                                a(href='#')= val.color
+                            .cart-product__attr='Size: '
+                                a(href='#')=val.size
+                    .cart-column.cart-product__price
+                        span.currency=val.price
+                    .cart-column.cart-product__quantity
+                        input(type='number' value=val.q)
+                    .cart-column.cart-product__shipping.text-uppercase=val.shipping
+                    .cart-column.cart-product__subtotal
+                        span.currency=(val.q * val.price)
+                    .cart-column.cart-product__action
+                        a(href='#item-delete').cart-item__delete
+                            i.fa.fa-times-circle
+
+            footer.cart-footer
+                a(href='#').button-second CLEAR SHOPPING CART
+                a(href='products.html').button-second CONTINUE sHOPPING
+
+        aside.cart-blocks.container
+            section.cart-block.cart-block__shipping-address
+                h2.cart-block__title Shipping Address
+                .select.select-dropdown Bangladesh
+                    ul.options
+                        li USA
+                        li Russia
+                        li France
+                        li Germany
+                input(placeholder='State').select
+                input(placeholder='Postcode/Zip').select
+                a(href='#').button-second.button-second--small Get a Quote
+
+            section.cart-block.cart-block__discount
+                h2.cart-block__title coupon discount
+                .cart-block__subtitle Enter your coupon code if you have one
+                input(placeholder='Coupon').select
+                a(href='#').button-second.button-second--small Apply coupon
+
+            section.cart-block.cart-block__total
+                .cart-total__sub Sub total
+                    span.currency 900
+                h2.cart-total__grand GRAND TOTAL
+                    span.currency 900
+                hr
+                a(href='checkout.html').button-main.button-main--cart Proceed to checkout
+
+

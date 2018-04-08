@@ -1,6 +1,6 @@
 doctype html
 html(lang="ru")
-    include _catalog.pug
+    //- include /parts/_catalog.pug
     block variables
         - pagename = 'Layout';
     block head
@@ -11,7 +11,7 @@ html(lang="ru")
             link(href='https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css' rel='stylesheet')
             link(href="https://fonts.googleapis.com/css?family=Lato:300,400,400i,700,900" rel="stylesheet")
             link(href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css", rel="stylesheet", integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN", crossorigin="anonymous")
-            link(href='assets/css/style.css' rel='stylesheet')
+            link(href='assets/style.css' rel='stylesheet')
             block styles
 
     body
@@ -188,3 +188,5 @@ html(lang="ru")
                             a(href='' title=val)
                                 i(class='fa fa-' + val)
         block scripts
+            script(src='assets/vendor/jquery.js')
+            script(src='assets/app.js')

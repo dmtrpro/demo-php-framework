@@ -2,7 +2,7 @@
 
 use Framework\Middleware\ErrorHandlerMiddleware;
 use Framework\Middleware\NotFoundHandler;
-use Framework\Renderer\PhpRenderer;
+use Framework\Renderer\PugRenderer;
 use Framework\Renderer\RendererInterface;
 use Framework\Renderer\TwigRenderer;
 use League\Container\Container;
@@ -13,7 +13,10 @@ $container->delegate(
     new League\Container\ReflectionContainer()
 );
 
-$container->add(RendererInterface::class, PhpRenderer::class);
+$container->add(RendererInterface::class, PugRenderer::class)->withArgument([
+    'expressionLanguage' => 'js',
+]);
+
 $container->add('twig', TwigRenderer::class);
 
 $container->add('DefaultHandler', NotFoundHandler::class)->withArgument('twig');

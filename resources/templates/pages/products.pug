@@ -1,0 +1,116 @@
+extends /layouts/main.pug
+
+block variables
+    - pagename = 'Catalog';
+
+block content
+    section.content.products-catalog
+        header.breadcrumbs
+            .container
+                h1.h1.breadcrumbs__title New Arrivals
+                ul.breadcrumbs_breadcrumb
+                    li
+                        a(href='index.html') Home
+                    li
+                        a(href='products.html') Man
+                    li
+                        | New Arrivals
+
+
+        .products-catalog__main.container
+            .products-catalog__categories.categories
+                - cats = ['Accessories', 'Bags', 'Denim', 'Hoodies & Sweatshirts', 'Jackets & Coats', 'Pants', 'Polos', 'Shirts', 'Shoes', 'Shorts', 'Sweaters & Knits', 'T-Shirts', 'Tanks'];
+                .categories-single.active
+                    .categories-single__name Category
+                        i.categories-single__carret.fa
+                    ul.categories-single__list
+                        for cat in cats
+                            li
+                                a(href='products.html')= cat
+
+                .categories-single
+                    .categories-single__name Brand
+                        i.categories-single__carret.fa
+                    ul.categories-single__list
+                        for cat in cats
+                            li
+                                a(href='products.html')= cat
+
+                .categories-single
+                    .categories-single__name Designer
+                        i.categories-single__carret.fa
+                    ul.categories-single__list
+                        for cat in cats
+                            li
+                                a(href='products.html')= cat
+
+            .products-catalog__content
+                form.products-catalog__filter.catalog-filter
+                    .catalog-filter__single.products-catalog__trending
+                        .catalog-filter__title Trending now
+                        ul.products-catalog__trending-list
+                            for val in ['Bohemian', 'Floral', 'Lace']
+                                li
+                                    a(href='#')=val
+                        ul.products-catalog__trending-list
+                            for val in ['Floral', 'Lace', 'Bohemian']
+                                li
+                                    a(href='#')=val
+
+                    .catalog-filter__single.products-catalog__size
+                        .catalog-filter__title Size
+                        ul.products-catalog__size-list
+                            for val in ['xxs', 'xs', 's', 'm', 'l', 'xl', 'xxl']
+                                li
+                                    input(type='checkbox' name=val id=val)
+                                    label(for=val)=val
+
+                    .catalog-filter__single.products-catalog__price
+                        .catalog-filter__title Price
+                        input(type="range" min="0" step="1" max="10").products-catalog__range
+                        span.products-catalog__price-min $52
+                        span.products-catalog__price-max $400
+
+                form.products-catalog__sort
+                    .input-addon Sort by
+                    select(name="sort")
+                        option(value='9' selected) Name
+                    .input-addon Show
+                    select(name="show" id='sort-show')
+                        option(value='9' selected) 09
+
+                .products-catalog__products.products-list.products-list--catalog
+                    +catalog(9)
+
+                .products-catalog__pager
+                    ul.pager
+                        li.pager__left.active
+                            a(href='#')
+                                i.fa.fa-chevron-left
+                        li.active
+                            a(href='#') 1
+                        for val in [2,3,4,5,6]
+                            li
+                                a(href='#')=val
+                        li ..
+                        li
+                            a(href='#') 20
+                        li.pager__right
+                            a(href='#')
+                                i.fa.fa-chevron-right
+                    a.button-second.button-second--pink.catalog__button View all
+
+    aside.products-catalog___offers-block
+        -
+            offers = [
+                    {name:'Free delivery', img:'img/offer-delivery.png', desc:'Worldwide delivery on all. Authorit tively morph next-generation innov tion with extensive models.'},
+                    {name:'Sales & discounts', img:'img/offer-sales.png', desc:'Worldwide delivery on all. Authorit tively morph next-generation innov tion with extensive models.'},
+                    {name:'Quality assurance', img:'img/offer-quality.png', desc:'Worldwide delivery on all. Authorit tively morph next-generation innov tion with extensive models.'}
+            ];
+        ul.products-catalog___offers.container.offers.offers--inline
+            for val in offers
+                li.offer-item
+                    img(src=val.img alt=val.name).offer-item__img
+                    .offer-item__text
+                        .offer-item__name=val.name
+                        .offer-item__desc=val.desc

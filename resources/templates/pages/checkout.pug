@@ -1,0 +1,67 @@
+extends /layouts/main.pug
+
+block variables
+    - pagename = 'Checkout';
+
+block content
+    section.content.single-product
+        header.breadcrumbs
+            .container
+                h1.h1.breadcrumbs__title Checkout
+                ul.breadcrumbs_breadcrumb
+                    li
+                        a(href='index.html') Home
+                    li
+                        | Checkout
+        .page-checkout.container
+            article.page-checkout__section
+                h2.page-checkout__title 01. Shipping Address
+                .page-checkout__content
+                    form.page-checkout__block
+                        article.checkout-block
+                            h3.checkout-block__title Check as a guest or register
+                            .checkout-block__subtitle Register with us for future convenience
+
+                            .checkout-radio
+                                input(type='radio' name='register' value='guest' id='guest')
+                                label(for='guest') checkout as guest
+                            .checkout-radio
+                                input(type='radio' name='register' value='register' id='register' checked='checked')
+                                label(for='register') register
+
+                        article.checkout-block
+                            h3.checkout-block__title register and save time!
+                            .checkout-block__subtitle Register with us for future convenience
+
+                            ul.checkout-register__benefits
+                                li Fast and easy checkout
+                                li Easy access to your order history and status
+
+                            button.cart__button.button-second.button-checkoutpage Continue
+
+                    form.page-checkout__block
+                        article.checkout-block
+                            h3.checkout-block__title Already registered?
+                            .checkout-block__subtitle Please log in below
+
+                            label(for='email').checkout-block__smalltitle.required EMAIL ADDRESS
+                            input(type='email' id='email').checkout-input
+
+                            label(for='password').checkout-block__smalltitle.required PASSWORD
+                            input(type='password' id='password').checkout-input
+
+                            .checkout-block__requiredfields * Required Fields
+
+                            .checkout-block__login
+                                button.cart__button.button-second.button-checkoutpage Log in
+                                a(href='#').checkout-block__forgotpass Forgot Password?
+            article.page-checkout__section
+                h2.page-checkout__title  02. BILLING INFORMATION
+            article.page-checkout__section
+                h2.page-checkout__title  03. SHIPPING INFORMATION
+            article.page-checkout__section
+                h2.page-checkout__title  04. SHIPPING METHOD
+            article.page-checkout__section
+                h2.page-checkout__title  05. PAYMENT METHOD
+            article.page-checkout__section
+                h2.page-checkout__title  06. ORDER REVIEW

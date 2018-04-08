@@ -1,0 +1,10 @@
+- function items(num) {for (var i = 0, ind = 1, arr = []; i < num; i++){ arr.push({name: 'Mango people t-shirt', cost: 52, img:'img/featured-item'+ (ind < 9 ? ind++ : ind = 1) +'.jpg'});} return arr; }
+
+mixin catalog(num)
+    for val in items(num)
+        article.products-list-item
+            a(href='single.html').products-list-item__link
+                img(src=val.img alt=val.name).products-list-item__image
+                h2.products-list-item__name=val.name
+                .products-list-item__cost.currency=val.cost.toFixed(2)
+            a(href='cart.html').products-list-item__cart Add to cart

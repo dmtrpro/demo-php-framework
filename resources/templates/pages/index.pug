@@ -1,0 +1,58 @@
+extends /layouts/main.pug
+
+block variables
+    - pagename = 'Home';
+
+block content
+    a(href='#').main-slider.container
+        img(src='img/slider-main.jpg' alt='Slider')
+        article.main-slider__container
+            .main-slider__text
+                h1.main-slider__text--h1 The Brand
+                h2.main-slider__text--h2= 'of luxerious '
+                    span.color-pink fashion
+
+    .main-categories.container
+        -
+            categories = [
+                {name:'Women', desc:'30% Offer', img:'img/offer-women.jpg'},
+                {name:'For men', desc:'Hot deal', img:'img/offer-man.jpg'},
+                {name:'For kids', desc:'New arrivals', img:'img/offer-child.jpg'},
+                {name:'Accessories', desc:'Luxirous & trendy', img:'img/offer-acc.jpg'}
+            ];
+        for val in categories
+            article.main-categories__block.offer-block
+                a(href='products.html')
+                    img(src=val.img alt=val.name).offer-block__image
+                    .offer-block__text
+                        .offer-block__desc=val.desc
+                        h2.offer-block__name=val.name
+
+    section.main-featured.featured-items.container
+        h2.featured-items__title Featured Items
+        .featured-items__desc Shop for items based on what we featured in this week
+        .featured-items__products-list.products-list.products-list--featured
+            +catalog(12)
+
+        a(href='products.html').main-featured__button.button-main= 'Browse all products '
+            i.fa.fa-long-arrow-right
+    aside.main-offer.container
+        -
+            offers = [
+                {name:'Free delivery', img:'img/offer-delivery.png', desc:'Worldwide delivery on all. Authorit tively morph next-generation innov tion with extensive models.'},
+                {name:'Sales & discounts', img:'img/offer-sales.png', desc:'Worldwide delivery on all. Authorit tively morph next-generation innov tion with extensive models.'},
+                {name:'Quality assurance', img:'img/offer-quality.png', desc:'Worldwide delivery on all. Authorit tively morph next-generation innov tion with extensive models.'}
+            ];
+        a(href='').main-offer__link
+            img(src='img/footer-banner.jpg' alt='Offer').main-offer__image
+            .main-offer__text
+                .main-offer__text--h1= '30% '
+                    span.color-pink offer
+                .main-offer__text--h2 for women
+            ul.main-offer__wrapper.offers.offers--column
+                for val in offers
+                    li.main-offer-item.offer-item
+                        img(src=val.img alt=val.name).offer-item__img
+                        .offer-item__text
+                            .offer-item__name=val.name
+                            .offer-item__desc=val.desc
