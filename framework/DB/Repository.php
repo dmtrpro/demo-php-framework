@@ -39,29 +39,46 @@ abstract class Repository
      */
     abstract public static function getMap(): array;
 
-    public function find($id): object
+    public function findAll($options = []): array
     {
-        $fields = $this->db->find($id, $this->getTableName());
+        $rows = $this->db->findAll($this->getTableName(), $options);
+
+        $result = [];
+
+        foreach ($rows as $row) {
+            $result[] = $this->createFromDbArray($row);
+        }
+
+        return $result;
+    }
+
+    public function find($entity): object
+    {
+        $fields = $this->db->find($this->getTableName(), $this->map($entity));
 
         return $this->createFromDbArray($fields);
     }
 
     public function save(object $entity)
     {
-        return $this->db->save($this->map($entity), $this->getTableName());
+        return $this->db->save($this->getTableName(), $this->map($entity));
     }
 
-    public function remove(object $entity)
+    public function remove($entity)
     {
-        return $this->db->remove($this->map($entity), $this->getTableName());
+        return $this->db->remove($this->getTableName(), $this->map($entity));
     }
 
     /**
-     * @param object $entity
-     * @return array
+     * @param object|int $entity
+     * @return mixed
      */
-    protected static function map(object $entity): array
+    protected function map($entity)
     {
+        if(!is_object($entity)) {
+            return $entity;
+        }
+
         $result = [];
 
         foreach (self::getMap() as $key => $value) {
