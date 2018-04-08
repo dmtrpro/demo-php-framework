@@ -18,6 +18,10 @@ class ProductController extends ResponseBuilderController
     {
         $query = $request->getQueryParams();
 
+        $limit = $query['limit'] ?? 6;
+        $page = $query['page'] ?? 1;
+
+        $this->response->setResponseType($request->getAttribute('type', 'html'));
         return $this->render('pages:products');
     }
 }

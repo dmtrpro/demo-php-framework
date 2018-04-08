@@ -36,9 +36,7 @@ class MainController extends HtmlController
 
     public function singleAction(ServerRequestInterface $request)
     {
-        $arguments = $request->getAttribute('args');
-
-        $productSlug = $arguments['product'];
+        $productSlug = $request->getAttribute('product');
 
         return $this->render('pages:single', [
             'productName' => $productSlug
