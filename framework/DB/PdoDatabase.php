@@ -125,4 +125,10 @@ class PdoDatabase implements Database
 
         return $stmt->fetch();
     }
+
+    public function createTable(string $table, array $fields): bool
+    {
+        // TODO: Implement createTable() method.
+        return false;
+    }
 }

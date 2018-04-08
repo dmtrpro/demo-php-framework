@@ -13,11 +13,13 @@ use PDO;
 
 interface Database
 {
-    public function save(string $table, $entity): bool;
+    public function createTable(string $table, array $fields): bool;
 
-    public function remove(string $table, $entity): bool;
+    public function save(string $table, array $entity): bool;
 
-    public function find(string $table, $entity);
+    public function remove(string $table, array $entity): bool;
+
+    public function find(string $table, array $entity);
 
     public function findAll(string $table, array $options);
 }
