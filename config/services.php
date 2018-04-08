@@ -1,5 +1,6 @@
 <?php
 
+use App\Repository\ProductRepository;
 use Framework\DB\Database;
 use Framework\DB\MySqlDatabase;
 use Framework\Middleware\ErrorHandlerMiddleware;
@@ -32,5 +33,10 @@ $container->add('twig', TwigRenderer::class);
 $container->add('DefaultHandler', NotFoundHandler::class)->withArgument(RendererInterface::class);
 
 $container->add(ErrorHandlerMiddleware::class)->withArgument(RendererInterface::class);
+
+/** Repositories **/
+//
+//$container->add(ProductRepository::class, ProductRepository::class)
+//    ->withArgument(Database::class);
 
 return $container;
