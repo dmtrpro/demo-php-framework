@@ -13,6 +13,7 @@ define('UPLOADS_DIR', PUBLIC_DIR . '/uploads');
 define('CONFIG', [
     'site' => include CONFIG_DIR . 'config.site.php',
     'global' => include CONFIG_DIR . 'config.global.php',
+    'db' => include CONFIG_DIR . 'config.db.php',
 ]);
 
 /**
