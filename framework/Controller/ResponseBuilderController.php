@@ -12,7 +12,7 @@ namespace Framework\Controller;
 use Framework\Renderer\RendererInterface;
 use Framework\Response\ResponseBuilder;
 
-class ResponseBuilderController
+abstract class ResponseBuilderController
 {
     /**
      * @var ResponseBuilder
