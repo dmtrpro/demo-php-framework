@@ -15,9 +15,18 @@ class MySqlDatabase implements Database
 {
     protected $db;
 
-    public function __construct(string $options)
+    public function __construct(array $options)
     {
-        $this->db = new PDO($options);
+        $pdoConfig = 'mysql:';
+
+        $pdoConfig .= 'host=' . ($options['host'] ?: 'localhost') . ';';
+
+        $pdoConfig .= 'dbname=' . ($options['dbname'] ?: 'test') . ';';
+
+        $user = (string) $options['user'] ?? 'root';
+        $pass = (string) $options['pass'] ?? '';
+
+        $this->db = new PDO($pdoConfig, $user, $pass);
 
         $this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     }

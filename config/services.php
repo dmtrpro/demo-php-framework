@@ -17,12 +17,7 @@ $container->delegate(
 
 /** DataBase */
 
-$container->add(Database::class, MySqlDatabase::class)->withArgument([
-    'host'=>'localhost',
-    'dbname'=>'test',
-    'user'=>'root',
-    'password'=>'',
-]);
+$container->add(Database::class, MySqlDatabase::class)->withArgument(CONFIG['db']);
 
 /** Renderers */
 
