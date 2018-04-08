@@ -11,8 +11,8 @@ define('PUBLIC_DIR', ROOT_DIR . '/public');
 define('UPLOADS_DIR', PUBLIC_DIR . '/uploads');
 
 define('CONFIG', [
-    'site' => include CONFIG_DIR . 'site.config.php',
-    'global' => include CONFIG_DIR . 'global.config.php',
+    'site' => include CONFIG_DIR . 'config.site.php',
+    'global' => include CONFIG_DIR . 'config.global.php',
 ]);
 
 /**

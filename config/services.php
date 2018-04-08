@@ -1,5 +1,7 @@
 <?php
 
+use Framework\DB\Database;
+use Framework\DB\MySqlDatabase;
 use Framework\Middleware\ErrorHandlerMiddleware;
 use Framework\Middleware\NotFoundHandler;
 use Framework\Renderer\PhpRenderer;
@@ -13,12 +15,23 @@ $container->delegate(
     new League\Container\ReflectionContainer()
 );
 
+/** DataBase */
+
+$container->add(Database::class, MySqlDatabase::class)->withArgument([
+    'host'=>'localhost',
+    'dbname'=>'test',
+    'user'=>'root',
+    'password'=>'',
+]);
+
+/** Renderers */
+
 $container->add(RendererInterface::class, PhpRenderer::class);
 $container->add('twig', TwigRenderer::class);
 
-$container->add('DefaultHandler', NotFoundHandler::class)->withArgument('twig');
-
 /** Middlewares **/
+
+$container->add('DefaultHandler', NotFoundHandler::class)->withArgument('twig');
 
 $container->add(ErrorHandlerMiddleware::class)->withArgument('twig');
 
