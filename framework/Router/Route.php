@@ -51,7 +51,7 @@ class Route
     /**
      * @var array
      */
-    protected $attributes;
+    protected $attributes = [];
 
     public function __construct($name, $path, $callable)
     {
