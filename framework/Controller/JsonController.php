@@ -11,7 +11,7 @@ namespace Framework\Controller;
 
 use Framework\Response\JsonResponse;
 
-class JsonController
+abstract class JsonController
 {
     /**
      * @var array
