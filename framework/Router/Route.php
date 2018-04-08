@@ -51,7 +51,7 @@ class Route
     /**
      * @var array
      */
-    protected $arguments;
+    protected $attributes;
 
     public function __construct($name, $path, $callable)
     {
@@ -80,7 +80,7 @@ class Route
 
         $arguments = array_filter($matches, '\is_string', ARRAY_FILTER_USE_KEY);
 
-        $arguments = array_merge($arguments, $this->getArguments());
+        $arguments = array_merge($arguments, $this->getAttributes());
 
         return new Result($this->name, $this->callable, $arguments);
     }
@@ -233,18 +233,18 @@ class Route
     /**
      * @return array
      */
-    public function getArguments(): array
+    public function getAttributes(): array
     {
-        return $this->arguments;
+        return $this->attributes;
     }
 
     /**
-     * @param array $arguments
+     * @param array $attributes
      * @return Route
      */
-    public function setArguments(array $arguments): Route
+    public function setAttributes(array $attributes): Route
     {
-        $this->arguments = $arguments;
+        $this->attributes = $attributes;
         return $this;
     }
 }
