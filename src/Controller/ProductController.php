@@ -9,7 +9,15 @@
 namespace App\Controller;
 
 
-class ProductController
-{
+use Framework\Controller\ResponseBuilderController;
+use Psr\Http\Message\ServerRequestInterface;
 
+class ProductController extends ResponseBuilderController
+{
+    public function indexAction(ServerRequestInterface $request)
+    {
+        $query = $request->getQueryParams();
+
+        return $this->render('pages:products');
+    }
 }
