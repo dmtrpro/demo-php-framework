@@ -45,43 +45,15 @@ html(lang="ru")
                             i.fa.fa-search
 
                     .header__cartbox
-                        -
-                            cartitems = [
-                                {
-                                    img: 'img/cart-item1.jpg',
-                                    name: 'Rebox Zane',
-                                    count: 1,
-                                    price: 250
-                                },
-                                {
-                                    img: 'img/cart-item2.jpg',
-                                    name: 'Rebox Zane',
-                                    count: 1,
-                                    price: 250
-                                }
-                            ]
                         .cart.dropdown-menu
                             img(src='img/cart.png' alt='Cart').cart__image
-                            .cart__items-count 2
+                            .cart__items-count#cart-counter 2
                             .dropdown-menu__container
-                                ul.cart__items
-                                    for val in cartitems
-                                        li.cart__item.cart-item
-                                            a(href='single.html')
-                                                img(src=val.img alt=val.name).cart-item__img
-                                            .cart-item__text
-                                                a(href='single.html').cart-item__head=val.name
-                                                img(src='img/stars.png' alt='Rating').cart-item__stars
-                                                .cart-item__count-price
-                                                    span.cart-item__count=val.count
-                                                    i= ' x '
-                                                    span.cart-item__price.currency=val.price
+                                ul.cart__items#main-cart
 
-                                            a(href='#item-delete').cart-item__delete
-                                                i.fa.fa-times-circle
                                 .cart__total-price
                                     span.total-price__total TOTAL
-                                    span.total-price__price.currency 500.00
+                                    span.total-price__price.currency#cart-total 500.00
                                 a(href='checkout.html').cart__button.button-second.button-second--pink Checkout
                                 a(href='cart.html').cart__button.button-second Go to Cart
                         a(href='#').header__accaunt.button-main= 'My Account '
