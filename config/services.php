@@ -1,5 +1,7 @@
 <?php
 
+use Framework\DB\Database;
+use Framework\DB\MySqlDatabase;
 use Framework\Middleware\ErrorHandlerMiddleware;
 use Framework\Middleware\NotFoundHandler;
 use Framework\Renderer\PugRenderer;
@@ -13,15 +15,26 @@ $container->delegate(
     new League\Container\ReflectionContainer()
 );
 
+/** DataBase */
+
+$container->add(Database::class, MySqlDatabase::class)->withArgument([
+    'host'=>'localhost',
+    'dbname'=>'test',
+    'user'=>'root',
+    'password'=>'',
+]);
+
+/** Renderers */
+
 $container->add(RendererInterface::class, PugRenderer::class)->withArgument([
     'expressionLanguage' => 'js',
 ]);
 
 $container->add('twig', TwigRenderer::class);
 
-$container->add('DefaultHandler', NotFoundHandler::class)->withArgument(RendererInterface::class);
-
 /** Middlewares **/
+
+$container->add('DefaultHandler', NotFoundHandler::class)->withArgument(RendererInterface::class);
 
 $container->add(ErrorHandlerMiddleware::class)->withArgument(RendererInterface::class);
 

@@ -9,17 +9,35 @@
 namespace App\Controller;
 
 
+use App\Repository\ProductRepository;
 use Framework\Controller\ResponseBuilderController;
+use Framework\Renderer\RendererInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
 class ProductController extends ResponseBuilderController
 {
+    /**
+     * @var ProductRepository
+     */
+    protected $repository;
+
+    public function __construct(RendererInterface $renderer, ProductRepository $productRepository)
+    {
+        parent::__construct($renderer);
+        $this->repository = $productRepository;
+    }
+
     public function indexAction(ServerRequestInterface $request)
     {
         $query = $request->getQueryParams();
 
-        $limit = $query['limit'] ?? 6;
-        $page = $query['page'] ?? 1;
+        $limit = (int) $query['limit'] ?? 6;
+        $page = (int) $query['page'] ?? 1;
+
+        $this->repository->findAll([
+            'limit' => $limit,
+            'offset' => $limit*($page-1)
+        ]);
 
         $this->response->setResponseType($request->getAttribute('type', 'html'));
         return $this->render('pages:products');

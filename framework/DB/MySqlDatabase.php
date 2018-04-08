@@ -105,12 +105,12 @@ class MySqlDatabase implements Database
 
         if ($options['limit']) {
             $sql .= ' LIMIT = :limit';
-            $entity['limit'] = $options['limit'];
+            $entity['limit'] = (int) $options['limit'];
         }
 
         if ($options['offset']) {
             $sql .= ' OFFSET = :offset';
-            $entity['offset'] = $options['offset'];
+            $entity['offset'] = (int) $options['offset'];
         }
 
         $stmt = $this->db->prepare($sql);
