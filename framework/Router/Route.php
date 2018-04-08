@@ -48,6 +48,11 @@ class Route
      */
     protected $tokens = [];
 
+    /**
+     * @var array
+     */
+    protected $arguments;
+
     public function __construct($name, $path, $callable)
     {
         $this->name = $name;
@@ -74,6 +79,8 @@ class Route
         }
 
         $arguments = array_filter($matches, '\is_string', ARRAY_FILTER_USE_KEY);
+
+        $arguments = array_merge($arguments, $this->getArguments());
 
         return new Result($this->name, $this->callable, $arguments);
     }
@@ -220,6 +227,24 @@ class Route
     public function setTokens(array $tokens): Route
     {
         $this->tokens = $tokens;
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getArguments(): array
+    {
+        return $this->arguments;
+    }
+
+    /**
+     * @param array $arguments
+     * @return Route
+     */
+    public function setArguments(array $arguments): Route
+    {
+        $this->arguments = $arguments;
         return $this;
     }
 }
