@@ -10,6 +10,7 @@ namespace Framework\Response;
 
 
 use Framework\Renderer\RendererInterface;
+use Psr\Http\Message\ResponseInterface;
 use Zend\Diactoros\Response\HtmlResponse;
 use Zend\Diactoros\Response\JsonResponse as DiactorosJsonResponse;
 
@@ -143,7 +144,11 @@ class ResponseBuilder
         return $this->message;
     }
 
-    public function build(array $params = [])
+    /**
+     * @param array $params
+     * @return ResponseInterface
+     */
+    public function build(array $params = []): ResponseInterface
     {
         if (!$params) {
             $params = $this->getParameters();

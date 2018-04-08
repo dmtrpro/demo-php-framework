@@ -19,11 +19,20 @@ abstract class HtmlController
      */
     protected $renderer;
 
+    /**
+     * HtmlController constructor.
+     * @param RendererInterface $renderer
+     */
     public function __construct(RendererInterface $renderer)
     {
         $this->renderer = $renderer;
     }
 
+    /**
+     * @param string $template
+     * @param array $params
+     * @return HtmlResponse
+     */
     protected function render(string $template, array $params = [])
     {
         return new HtmlResponse($this->renderer->render($template, $params));
