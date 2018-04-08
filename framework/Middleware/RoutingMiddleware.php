@@ -42,9 +42,13 @@ class RoutingMiddleware implements MiddlewareInterface
 
             $responseHandler = $this->prepareHandler($result->getHandler());
 
-            $args = $result->getAttributes();
+            $attrs = $result->getAttributes();
 
-            $response = $responseHandler($request->withAttribute('args', $args));
+            foreach ($attrs as $key => $attr) {
+                $request = $request->withAttribute($key, $attr);
+            }
+
+            $response = $responseHandler($request);
 
             if (!$response instanceof ResponseInterface) {
                 throw new \RuntimeException(
