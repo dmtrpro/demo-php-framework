@@ -19,6 +19,11 @@ module.exports = {
 
     module: {
         rules: [
+            { test: /\.(jpe?g|gif|png)$/, loader: 'file-loader', options: {
+                    emitFile: false,
+                    name: '../img/[name].[ext]?[hash]',
+                }},
+
             // All files with a '.ts' or '.tsx' extension will be handled by 'awesome-typescript-loader'.
             { test: /\.tsx?$/, loader: "awesome-typescript-loader" },
 
@@ -28,7 +33,7 @@ module.exports = {
             // All files with a '.css' or '.scss' extension will be handled by 'extract-text-webpack-plugin'.
             { test: /\.scss$/, use: ExtractTextPlugin.extract({
                     fallback: 'style-loader', use: ['css-loader', 'sass-loader']
-            })}
+                })}
         ]
     },
 
@@ -38,7 +43,7 @@ module.exports = {
             {
                 context: path.resolve(__dirname),
                 from: './node_modules/jquery/dist/jquery.js',
-                to: path.resolve(__dirname, './public/assets/js/jquery.js')
+                to: path.resolve(__dirname, './public/assets/vendor/jquery.js')
             }
         ])
     ],
