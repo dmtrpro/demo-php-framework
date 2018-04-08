@@ -9,7 +9,7 @@
 namespace Framework\Controller;
 
 
-use Zend\Diactoros\Response\JsonResponse;
+use Framework\Response\JsonResponse;
 
 class JsonController
 {
@@ -17,18 +17,10 @@ class JsonController
 
     protected function jsonResponse(array $data, int $code = 0, string $message = '')
     {
-        $response = [
-            'status' => ($code === 0) ? 'ok' : 'error',
-            'code' => $code,
-            'data' => $data,
-        ];
-
-        if ($message) {
-            $response['message'] = $message;
-        } elseif (static::$messages[$code]) {
-            $response['message'] = static::$messages[$code];
+        if (!$message && static::$messages[$code]) {
+            $message = static::$messages[$code];
         }
 
-        return new JsonResponse($response);
+        return new JsonResponse($data, $code, $message);
     }
 }
