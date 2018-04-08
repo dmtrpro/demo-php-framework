@@ -3,6 +3,7 @@
 use App\Repository\ProductRepository;
 use Framework\DB\Database;
 use Framework\DB\MySqlDatabase;
+use Framework\DB\SqLiteDatabase;
 use Framework\Middleware\ErrorHandlerMiddleware;
 use Framework\Middleware\NotFoundHandler;
 use Framework\Renderer\PugRenderer;
@@ -18,7 +19,9 @@ $container->delegate(
 
 /** DataBase */
 
-$container->add(Database::class, MySqlDatabase::class)->withArgument(CONFIG['db']);
+$container->add(Database::class, SqLiteDatabase::class)->withArgument([
+    'file' => 'shop.sqlite'
+]);
 
 /** Renderers */
 
@@ -35,7 +38,7 @@ $container->add('DefaultHandler', NotFoundHandler::class)->withArgument(Renderer
 $container->add(ErrorHandlerMiddleware::class)->withArgument(RendererInterface::class);
 
 /** Repositories **/
-//
+
 //$container->add(ProductRepository::class, ProductRepository::class)
 //    ->withArgument(Database::class);
 

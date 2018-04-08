@@ -9,8 +9,10 @@
 namespace App\Controller;
 
 
+use App\App;
 use App\Repository\ProductRepository;
 use Framework\Controller\ResponseBuilderController;
+use Framework\DB\Database;
 use Framework\Renderer\RendererInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
@@ -29,17 +31,19 @@ class ProductController extends ResponseBuilderController
 
     public function indexAction(ServerRequestInterface $request)
     {
+        global $container;
+
         $query = $request->getQueryParams();
 
         $limit = (int) $query['limit'] ?? 6;
         $page = (int) $query['page'] ?? 1;
 
-        $this->repository->findAll([
-            'limit' => $limit,
-            'offset' => $limit*($page-1)
-        ]);
+//        $this->repository->findAll([
+//            'limit' => $limit,
+//            'offset' => $limit*($page-1)
+//        ]);
 
-        $this->response->setResponseType($request->getAttribute('type', 'html'));
+       // $this->response->setResponseType($request->getAttribute('type', 'html'));
         return $this->render('pages:products');
     }
 }

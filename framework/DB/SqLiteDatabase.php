@@ -17,12 +17,16 @@ class SqLiteDatabase extends MySqlDatabase
 
     public function __construct(array $options)
     {
-        $pdoConfig = 'sqlite:';
+        try {
+            $pdoConfig = 'sqlite:';
 
-        $pdoConfig .= DATA_DIR.($options['file'] ?: 'db.sqlite');
+            $pdoConfig .= DATA_DIR . DIRECTORY_SEPARATOR . ($options['file'] ?: 'db.sqlite');
 
-        $this->db = new PDO($pdoConfig);
+            $this->db = new PDO($pdoConfig);
 
-        $this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        } catch (\Throwable $e) {
+            echo $e->getMessage();
+        }
     }
 }

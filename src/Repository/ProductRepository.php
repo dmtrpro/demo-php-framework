@@ -14,7 +14,7 @@ use Framework\DB\Type\IntegerType;
 use Framework\DB\Type\StringType;
 use Framework\DB\Type\Type;
 
-class ProductRepository extends Repository
+class ProductRepository
 {
     /**
      * Returns table name as a string
