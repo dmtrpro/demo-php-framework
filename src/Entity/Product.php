@@ -8,18 +8,27 @@
 
 namespace App\Entity;
 
-
+/**
+ * Class Product
+ *
+ * @DB\TableName demo_shop_product
+ * @package App\Entity
+ */
 class Product
 {
     /**
+     * @DB\ColumnName id
+     * @DB\ColumnOption primary
      * @var int
      */
     protected $id;
 
     /**
+     * @DB\ColumnName product_uid
+     * @DB\ColumnOption unique
      * @var string
      */
-    protected $productId;
+    protected $productUid;
 
     /**
      * @var string
@@ -38,11 +47,13 @@ class Product
     protected $price;
 
     /**
+     * @DB\ColumnType text
      * @var string
      */
     protected $excerpt;
 
     /**
+     * @DB\ColumnType text
      * @var string
      */
     protected $content;
@@ -60,6 +71,13 @@ class Product
     protected $image;
 
     /**
+     * @var int
+     */
+    protected $quantity;
+
+    /**
+     * @DB\ColumnType ignore
+     * @DB\Association ProductProps:productId
      * todo: replace to ProductChars Entity
      * @var array[]
      */
@@ -86,18 +104,18 @@ class Product
     /**
      * @return string
      */
-    public function getProductId(): string
+    public function getProductUid(): string
     {
-        return $this->productId;
+        return $this->productUid;
     }
 
     /**
-     * @param string $productId
+     * @param string $productUid
      * @return Product
      */
-    public function setProductId(string $productId): Product
+    public function setProductUid(string $productUid): Product
     {
-        $this->productId = $productId;
+        $this->productUid = $productUid;
         return $this;
     }
 
@@ -224,6 +242,24 @@ class Product
     public function setImage(string $image): Product
     {
         $this->image = $image;
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getQuantity(): int
+    {
+        return $this->quantity;
+    }
+
+    /**
+     * @param int $quantity
+     * @return Product
+     */
+    public function setQuantity(int $quantity): Product
+    {
+        $this->quantity = $quantity;
         return $this;
     }
 
