@@ -19,10 +19,10 @@ $container->add(RendererInterface::class, PugRenderer::class)->withArgument([
 
 $container->add('twig', TwigRenderer::class);
 
-$container->add('DefaultHandler', NotFoundHandler::class)->withArgument('twig');
+$container->add('DefaultHandler', NotFoundHandler::class)->withArgument(RendererInterface::class);
 
 /** Middlewares **/
 
-$container->add(ErrorHandlerMiddleware::class)->withArgument('twig');
+$container->add(ErrorHandlerMiddleware::class)->withArgument(RendererInterface::class);
 
 return $container;

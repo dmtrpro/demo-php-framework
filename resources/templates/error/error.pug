@@ -1,0 +1,25 @@
+extends /layouts/main.pug
+
+block variables
+    - pagename = 'Ошибка';
+
+    if (!code)
+        - code = '404';
+
+    if (!message)
+        - message = 'Not Found';
+
+    if (!description)
+        - description = 'Sorry, an error has occured, Requested page not found!';
+
+block content
+    section.content.error-page
+        .single-product__slider
+            h1.error-header.color-pink= 'Ошибка ' + code
+
+        article.container.single-product__article
+            .single-product__main
+                .single-product__container
+                    a(href='/products').single-product__category Возникла ошибка!
+                    h2.single-product__title= code + ' ' + message
+                    .single-product__description= description

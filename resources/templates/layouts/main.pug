@@ -11,7 +11,7 @@ html(lang="ru")
             link(href='https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css' rel='stylesheet')
             link(href="https://fonts.googleapis.com/css?family=Lato:300,400,400i,700,900" rel="stylesheet")
             link(href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css", rel="stylesheet", integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN", crossorigin="anonymous")
-            link(href='assets/style.css' rel='stylesheet')
+            link(href='/assets/style.css' rel='stylesheet')
             block styles
 
     body
@@ -19,8 +19,8 @@ html(lang="ru")
         block header
             header.header
                 .container
-                    a(href='index.html').logo.header__logo
-                        img(src='img/logo.png' alt='Logo')
+                    a(href='/').logo.header__logo
+                        img(src='/img/logo.png' alt='Logo')
                         | bran
                         span.logo__d d
                     .header__search.header-search
@@ -46,7 +46,7 @@ html(lang="ru")
 
                     .header__cartbox
                         .cart.dropdown-menu
-                            img(src='img/cart.png' alt='Cart').cart__image
+                            img(src='/img/cart.png' alt='Cart').cart__image
                             .cart__items-count#cart-counter 2
                             .dropdown-menu__container
                                 ul.cart__items#main-cart
@@ -54,50 +54,50 @@ html(lang="ru")
                                 .cart__total-price
                                     span.total-price__total TOTAL
                                     span.total-price__price.currency#cart-total 500.00
-                                a(href='checkout.html').cart__button.button-second.button-second--pink Checkout
-                                a(href='cart.html').cart__button.button-second Go to Cart
+                                a(href='/checkout').cart__button.button-second.button-second--pink Checkout
+                                a(href='/cart').cart__button.button-second Go to Cart
                         a(href='#').header__accaunt.button-main= 'My Account '
                             i.fa.fa-caret-down
 
             nav.header-nav
                 ul
                     li.mega-menu.dropdown-menu.active
-                        a(href='products.html') Home
+                        a(href='products') Home
                         .dropdown-menu__container
                             .mega-menu__wrapper
                                 .mega-menu__col.mega-menu__col1
                                     .dropdown-menu__header
-                                        a(href='products.html') Women
+                                        a(href='products') Women
                                     ul
                                         for val in ['Dresses','Tops','Sweaters/Knits','Jackets/Coats','Blazers','Denim','Leggings/Pants','Skirts/Shorts','Accessories']
                                             li
                                                 a(href='#')=val
                                 .mega-menu__col.mega-menu__col2
                                     .dropdown-menu__header
-                                        a(href='products.html') Women
+                                        a(href='products') Women
                                     ul
                                         for val in ['Dresses','Tops','Sweaters/Knits','Jackets/Coats']
                                             li
-                                                a(href='products.html')=val
+                                                a(href='products')=val
                                     .dropdown-menu__header
-                                        a(href='products.html') Women
+                                        a(href='products') Women
                                     ul
                                         for val in ['Dresses','Tops','Sweaters/Knits']
                                             li
                                                 a(href='#')=val
                                 .mega-menu__col.mega-menu__col3
                                     .dropdown-menu__header
-                                        a(href='products.html') Women
+                                        a(href='products') Women
                                     ul
                                         for val in ['Dresses','Tops','Sweaters/Knits','Jackets/Coats']
                                             li
-                                                a(href='products.html')=val
-                                    a(href='single.html').mega-menu__img
-                                        img(src='img/mm-subersale.jpg' alt='Super Sale!')
+                                                a(href='products')=val
+                                    a(href='products/single').mega-menu__img
+                                        img(src='/img/mm-subersale.jpg' alt='Super Sale!')
                                         .mega-menu__img-slogan Super sale!
                     for val in ['Man', 'Women', 'Kids', 'Accoseriese', 'Featured', 'Hot Deals']
                         li
-                            a(href='products.html')= val
+                            a(href='products')= val
 
         block content
 
@@ -106,7 +106,7 @@ html(lang="ru")
                 .container
                     .subrevs__block
                         .reviews
-                            img(src='img/user1.png' alt='User photo').reviews__image
+                            img(src='/img/user1.png' alt='User photo').reviews__image
                             .reviews__text
                                 | “Vestibulum quis porttitor dui! Quisque viverra nunc mi, a pulvinar purus condimentum a. Aliquam condimentum mattis neque sed pretium”
                                 .reviews__author.reviev-author
@@ -126,8 +126,8 @@ html(lang="ru")
 
             .about.container
                 .about__text
-                    a(href='index.html').about__logo.logo
-                        img(src='img/logo.png' alt='Logo')
+                    a(href='/').about__logo.logo
+                        img(src='/img/logo.png' alt='Logo')
                         | bran
                         span.logo__d d
                     p Objectively transition extensive data rather than cross functional solutions. Monotonectally syndicate multidisciplinary materials before go forward benefits. Intrinsicly syndicate an expanded array of processes and cross-unit partnerships.
@@ -139,19 +139,19 @@ html(lang="ru")
                     ul
                         for val in ['Home', 'Shop', 'About', 'How it works', 'Contact']
                             li
-                                a(href='products.html')= val
+                                a(href='products')= val
                 nav.about__menu
                     h2 Information
                     ul
                         each val in ['Tearms & Condition', 'Privacy Policy', 'How to Buy','How to Sell','Promotion']
                             li
-                                a(href='products.html')=val
+                                a(href='products')=val
                 nav.about__menu
                     h2 Shop Category
                     ul
                         for val in ['Men','Women','Child','Apparel','Brows All']
                             li
-                                a(href='products.html')=val
+                                a(href='products')=val
             footer.footer
                 .container
                     div.footer__copy &copy; 2017 Brand  All Rights Reserved.
@@ -160,5 +160,5 @@ html(lang="ru")
                             a(href='' title=val)
                                 i(class='fa fa-' + val)
         block scripts
-            script(src='assets/vendor/jquery.js')
-            script(src='assets/app.js')
+            script(src='/assets/vendor/jquery.js')
+            script(src='/assets/app.js')

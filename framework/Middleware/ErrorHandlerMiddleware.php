@@ -47,12 +47,12 @@ class ErrorHandlerMiddleware implements MiddlewareInterface
 
             $template = ($debug) ? 'error/debug' : 'error/error';
 
-            return new HtmlResponse('<pre>'.json_encode([
+            return new HtmlResponse($this->renderer->render($template, [
                 'exception' => $e,
                 'code' => 500,
                 'message' => 'Internal Server Error',
                 'description' => 'Error #' . $e->getCode() . ': ' . $e->getMessage()
-            ]).'</pre>', 500);
+            ]), 500);
         }
     }
 }

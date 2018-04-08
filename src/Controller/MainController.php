@@ -30,13 +30,30 @@ class MainController
         return $this->render('pages:index');
     }
 
+    public function cartAction(ServerRequestInterface $request)
+    {
+        return $this->render('pages:cart');
+    }
+
+    public function checkoutAction(ServerRequestInterface $request)
+    {
+        return $this->render('pages:checkout');
+    }
+
+    public function catalogAction(ServerRequestInterface $request)
+    {
+        return $this->render('pages:products');
+    }
+
     public function singleAction(ServerRequestInterface $request)
     {
         $arguments = $request->getAttribute('args');
 
         $productSlug = $arguments['product'];
 
-        return new HtmlResponse('This is page: '.$productSlug);
+        return $this->render('pages:single', [
+            'productName' => $productSlug
+        ]);
     }
 
     private function render(string $template, array $params = [])

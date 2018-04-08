@@ -1,0 +1,30 @@
+extends /layouts/main.pug
+
+block variables
+    -
+        pagename = 'Ошибка';
+        code = exception.getCode();
+        message = exception.getMessage();
+
+    if (!description)
+        - description = 'No description provided!';
+
+block content
+    section.content.error-page
+        .single-product__slider
+            h1.error-header.color-pink= 'Ошибка ' + code
+
+        article.container.single-product__article
+            .single-product__main
+                .single-product__container
+                    a(href='/products').single-product__category Возникла ошибка!
+                    h5.single-product__title= 'Error #' + code
+                    p.error-message= message
+                    p= exception.getFile() + ' on line ' + exception.getLine()
+
+            .error-trace
+                h2 Trace:
+                p= '0: ' + exception.getFile() + ' on line ' + exception.getLine()
+
+                each trace, key in exception.getTrace()
+                    p= key+1 +': ' + trace.file + ' on line ' + trace.line
