@@ -247,4 +247,15 @@ class Route
         $this->attributes = $attributes;
         return $this;
     }
+
+    /**
+     * @param string $key
+     * @param mixed $value
+     * @return Route
+     */
+    public function addAttribute(string $key, $value): Route
+    {
+        $this->attributes[$key] = $value;
+        return $this;
+    }
 }
