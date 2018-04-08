@@ -19,7 +19,7 @@ class SqLiteDatabase extends PdoDatabase
     {
         $pdoConfig = 'sqlite:';
 
-        $pdoConfig .= DATA_DIR.($options['file'] ?: 'db.sqlite');
+        $pdoConfig .= DATA_DIR.DIRECTORY_SEPARATOR.($options['file'] ?: 'db.sqlite');
 
         parent::__construct($pdoConfig);
     }
