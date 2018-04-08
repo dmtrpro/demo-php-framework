@@ -11,22 +11,16 @@ namespace Framework\DB;
 
 use PDO;
 
-class SqLiteDatabase extends MySqlDatabase
+class SqLiteDatabase extends PdoDatabase
 {
     protected $db;
 
     public function __construct(array $options)
     {
-        try {
-            $pdoConfig = 'sqlite:';
+        $pdoConfig = 'sqlite:';
 
-            $pdoConfig .= DATA_DIR . DIRECTORY_SEPARATOR . ($options['file'] ?: 'db.sqlite');
+        $pdoConfig .= DATA_DIR.($options['file'] ?: 'db.sqlite');
 
-            $this->db = new PDO($pdoConfig);
-
-            $this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        } catch (\Throwable $e) {
-            echo $e->getMessage();
-        }
+        parent::__construct($pdoConfig);
     }
 }
