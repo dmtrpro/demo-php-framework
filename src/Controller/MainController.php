@@ -9,22 +9,11 @@
 namespace App\Controller;
 
 
-use Framework\Renderer\RendererInterface;
+use Framework\Controller\HtmlController;
 use Psr\Http\Message\ServerRequestInterface;
-use Zend\Diactoros\Response\HtmlResponse;
 
-class MainController
+class MainController extends HtmlController
 {
-    /**
-     * @var RendererInterface
-     */
-    private $renderer;
-
-    public function __construct(RendererInterface $renderer)
-    {
-        $this->renderer = $renderer;
-    }
-
     public function indexAction(ServerRequestInterface $request)
     {
         return $this->render('pages:index');
@@ -54,10 +43,5 @@ class MainController
         return $this->render('pages:single', [
             'productName' => $productSlug
         ]);
-    }
-
-    private function render(string $template, array $params = [])
-    {
-        return new HtmlResponse($this->renderer->render($template, $params));
     }
 }

@@ -39,7 +39,7 @@ export class ProductItem extends BaseItem {
     }
 
     public getLink(): string {
-        return 'product.html?product=' + this.get('slug');
+        return 'products/' + this.get('slug');
     }
 
     template() {
