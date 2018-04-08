@@ -39,7 +39,7 @@ abstract class ResponseBuilderController
 
     /**
      * @param array $params
-     * @return \Framework\Response\JsonResponse|\Zend\Diactoros\Response\HtmlResponse|\Zend\Diactoros\Response\JsonResponse
+     * @return \Psr\Http\Message\ResponseInterface
      */
     protected function sendResponse(array $params = [])
     {
@@ -49,7 +49,7 @@ abstract class ResponseBuilderController
     /**
      * @param string $template
      * @param array $params
-     * @return \Framework\Response\JsonResponse|\Zend\Diactoros\Response\HtmlResponse|\Zend\Diactoros\Response\JsonResponse
+     * @return \Psr\Http\Message\ResponseInterface
      */
     protected function render(string $template, array $params = [])
     {
