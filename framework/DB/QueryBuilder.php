@@ -8,7 +8,12 @@
 
 namespace Framework\DB;
 
-
+/**
+ * Class QueryBuilder
+ * todo: Work at Progress. Not ready for use.
+ *
+ * @package Framework\DB
+ */
 class QueryBuilder
 {
     public const SELECT = 0;

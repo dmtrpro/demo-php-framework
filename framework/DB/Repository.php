@@ -11,6 +11,12 @@ namespace Framework\DB;
 
 use Framework\DB\Type\Type;
 
+/**
+ * Class Repository
+ * todo: Work at Progress. Not ready for use.
+ *
+ * @package Framework\DB
+ */
 abstract class Repository
 {
     /**
