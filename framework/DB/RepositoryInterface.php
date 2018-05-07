@@ -11,15 +11,15 @@ namespace Framework\DB;
 
 interface RepositoryInterface
 {
-    public function findAll($options = []): array;
+    public function findAll($options = []);
 
-    public function findById($id): object;
+    public function findById($id);
 
-    public function find(object $entity): object;
+    public function find($entity);
 
-    public function save(object $entity): bool;
+    public function save($entity): bool;
 
-    public function delete(object $entity): bool;
+    public function delete($entity): bool;
 
-    public function create(): object;
+    public function create();
 }
